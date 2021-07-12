@@ -1,0 +1,94 @@
+I(name='GLOBAL',
+      code='c',
+      arg=stringnl_noescape_pair,
+      stack_before=[],
+      stack_after=[anyobject],
+      proto=0,
+      doc="""Push a global object (module.attr) on the stack.
+      Two newline-terminated strings follow the GLOBAL opcode.  The first is
+      taken as a module name, and the second as a class name.  The class
+      object module.class is pushed on the stack.  More accurately, the
+      object returned by self.find_class(module, class) is pushed on the
+      stack, so unpickling subclasses can override this form of lookup.
+      """),
+      
+I(name='PUT',
+      code='p',
+      arg=decimalnl_short,
+      stack_before=[],
+      stack_after=[],
+      proto=0,
+      doc="""Store the stack top into the memo.  The stack is not popped.
+      The index of the memo location to write into is given by the newline-
+      terminated decimal string following.  BINPUT and LONG_BINPUT are
+      space-optimized versions.
+      """),
+
+I(name='REDUCE',
+      code='R',
+      arg=None,
+      stack_before=[anyobject, anyobject],
+      stack_after=[anyobject],
+      proto=0,
+      doc="""Push an object built from a callable and an argument tuple.
+      The opcode is named to remind of the __reduce__() method.
+      Stack before: ... callable pytuple
+      Stack after:  ... callable(*pytuple)
+      The callable and the argument tuple are the first two items returned
+      by a __reduce__ method.  Applying the callable to the argtuple is
+      supposed to reproduce the original object, or at least get it started.
+      If the __reduce__ method returns a 3-tuple, the last component is an
+      argument to be passed to the object's __setstate__, and then the REDUCE
+      opcode is followed by code to create setstate's argument, and then a
+      BUILD opcode to apply  __setstate__ to that argument.
+      If not isinstance(callable, type), REDUCE complains unless the
+      callable has been registered with the copyreg module's
+      safe_constructors dict, or the callable has a magic
+      '__safe_for_unpickling__' attribute with a true value.  I'm not sure
+      why it does this, but I've sure seen this complaint often enough when
+      I didn't want to <wink>.
+      """),
+      
+I(name='GET',
+      code='g',
+      arg=decimalnl_short,
+      stack_before=[],
+      stack_after=[anyobject],
+      proto=0,
+      doc="""Read an object from the memo and push it on the stack.
+      The index of the memo object to push is given by the newline-terminated
+      decimal string following.  BINGET and LONG_BINGET are space-optimized
+      versions.
+      """),
+      
+      
+ I(name='TUPLE1',
+      code='\x85',
+      arg=None,
+      stack_before=[anyobject],
+      stack_after=[pytuple],
+      proto=2,
+      doc="""Build a one-tuple out of the topmost item on the stack.
+      This code pops one value off the stack and pushes a tuple of
+      length 1 whose one item is that value back onto it.  In other
+      words:
+          stack[-1] = tuple(stack[-1:])
+      """),
+      
+ 
+I(name='TUPLE',
+      code='t',
+      arg=None,
+      stack_before=[markobject, stackslice],
+      stack_after=[pytuple],
+      proto=0,
+      doc="""Build a tuple out of the topmost stack slice, after markobject.
+      All the stack entries following the topmost markobject are placed into
+      a single Python tuple, which single tuple object replaces all of the
+      stack from the topmost markobject onward.  For example,
+      Stack before: ... markobject 1 2 3 'abc'
+      Stack after:  ... (1, 2, 3, 'abc')
+      """),
+
+
+
