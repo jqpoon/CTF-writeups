@@ -2,3 +2,4 @@
 
 ictf{str1ngs_4r3nt_h1dd3n_17b21a69}
 
+// used gdb and step through char by char
