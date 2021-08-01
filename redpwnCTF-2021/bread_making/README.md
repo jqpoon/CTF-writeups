@@ -31,3 +31,5 @@ brush teeth and go to bed
 Looks like we found some actions that we can key in, and it's just a matter of finding the order in which to enter the actions.
 
 It is still a useful challenge to build some pwntools skills :)
+
+`flag{m4yb3_try_f0ccac1a_n3xt_t1m3???0r_dont_b4k3_br3ad_at_m1dnight}`
