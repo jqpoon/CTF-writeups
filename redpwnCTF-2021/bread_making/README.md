@@ -4,15 +4,29 @@ An interesting misc challenge that doesn't require *too* much technical knowledg
 
 Opening the binary with ghidra, we see that there are a few checks we need to pass before we reach the function that prints the flag.
 
+
 ![Image](./images/main.png)
 *Screenshot of part of the main function*
+
 
 ![Image](./images/flag.png)
 *Screenshot of the flag function*
 
+
+Running the program, we see something like this
+```
+$ ./bread
+add ingredients to the bowl
+aaaaaaaa
+we don't have that ingredient at home!
+```
+
+Looks like we need to enter some kind of phrase.
+
+
 We then look at the strings in the binary.
 
-```bash
+```
 $ strings bread
 ...
 pull the tray out with a towel
