@@ -13,7 +13,7 @@ $ checksec chall
     PIE:      No PIE (0x8048000)
 ```
 
-That's great we don't have to deal with too many security features.
+That's great, we don't have to deal with too many security features.
 
 Running the binary normally looks like this.
 ```bash
@@ -23,7 +23,7 @@ What is your name? Joe
 Hohoho! Hello, Joe!
 ```
 
-Keep in mind these strings.
+Keep in mind the sequence of these strings.
 
 ---
 ## Static Analysis
@@ -37,7 +37,7 @@ Let's start from `entry`, since that is almost always labelled by Ghidra.
 void entry(void)
 
 {
-  __libc_start_main(FUNC_1);
+  __libc_start_main(FUNC_0);
   do {
                     /* WARNING: Do nothing block with infinite loop */
   } while( true );
@@ -46,7 +46,7 @@ void entry(void)
 There's our `main` function! It looks something like this, after relabelling some variables.
 
 ```c
-bool main(void)
+bool FUNC_0(void)
 
 {
   char user_input [64];
@@ -72,7 +72,7 @@ bool main(void)
 }
 ```
 
-Looks like a stack overflow problem, since our `user_input` is only defined for 64 characters and we are reading 0x200 characters with `fgets(user_input,0x200,stdin)`. This means that we can overwrite `local_14` and `local_c`.
+Looks like a stack overflow vulnerability, since `user_input` is only defined for 64 characters and we are reading 0x200 characters with `fgets(user_input,0x200,stdin)`. This means that we can overwrite `local_14` and `local_c`.
 
 `local_14` seems to be set to the address of `PTR_0804888c`, so let's see what's there.
 
@@ -87,13 +87,7 @@ Looks like it's a pointer to another function (in little-endian format).
 ### Other functions
 
 We then look at `FUNC_1`, `FUNC_2` and `FUNC_3`.
-
-```c
-void FUNC_1(void)
-
-{
-  return;
-}
+:heavy_check_mark: |
 ```
 
 Nothing interesting here. *yawn*
@@ -126,7 +120,7 @@ void FUNC_3(undefined4 param_1,char *param_2)
   return;
 }
 ```
-Remember this string from earlier? So it seems like `FUNC_2` is calling `FUNC_3`. 
+Remember this string from earlier? This confirms that `FUNC_2` is calling `FUNC_3`. 
 
 ---
 ## Putting it together
@@ -147,10 +141,12 @@ void FUNC_4(undefined4 param_1,char *param_2)
 All we have to do now is to find an address that contains a pointer to this function. In Ghidra's menu, select Search -> Memory and enter the address of this function.
 
 ![](ghidra_search.png)
+
 *Screenshot of memory search in Ghidra*
 
-Our magic pointer to a pointer to a function is thus located at 0x08048898.
+The pointer to a pointer to a function we are looking for is thus located at `0x08048898`.
 
 We then use `pwntools` to interface with the server for us and then get an interactive shell. The full script is found in `solve.py`.
 
+---
 `HTF{bof_1s_v3ry_fun_but_h4rd_th4nk_y0u_h4ck3r}`

@@ -2,7 +2,7 @@
 
 | Category | Name | Solved | Writeup done |
 |:---:|:---:|:---:|:---:| 
-| pwn | blow_out_flames | :green_circle: |
+| pwn | blow_out_flames | :green_circle: | :heavy_check_mark: |
 | rev | which_side | :green_circle: |
 | rev | stolen_gifts | :green_circle: |
 | web | motd_online | :green_circle: |
