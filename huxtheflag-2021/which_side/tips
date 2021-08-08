@@ -1,0 +1,22 @@
+054b03040a000900 00007259fa52330f 2a712b0000001f00 00001e001c005768 617457617357726f 6e67576974685468 655a697046696c65 2e74787455540900 03376efe60ee6ffe 6075780b000104e8 03000004e8030000 33c0b21b4fc27f24 3eecfd2b01b92a3b 52a927bd0a46b530 47df7ca0bfba54a1 d409b2b69e6039b6 96aca8504b070833 0f2a712b0000001f 000000504b01021e 030a000900000072 59fa52330f2a712b 0000001f0000001e 0018000000000001 000000a481000000 0057686174576173 57726f6e67576974 685468655a697046 696c652e74787455 54050003376efe60 75780b000104e803 000004e803000050 4b05060000000001 0001006400000093 0000000000
+
+.K...... ..rY.R3. *q+..... ......Wh atWasWro ngWithTh eZipFile .txtUT.. .7n.`.o. `ux..... ........ 3...O.$ >..+..*; R.'..F.0 G.|...T. .....`9. ...PK..3 .*q+.... ...PK... .......r Y.R3.*q+ ........ ........ ........ .WhatWas WrongWit hTheZipF ile.txtU T...7n.` ux...... .......P K....... ...d.... .....
+
+
+https://fareedfauzi.gitbook.io/ctf-checklist-for-beginner/steganography
+
+https://github.com/zardus/ctf-tools
+
+
+
+WhatWasWrongWithTheZipFile.txt
+
+
+HTF{W3lc0m3_t0_th3_N0rth_51d3}
+
+extra data at end of file found with stegsolve.jar
+
+extract, looks like a corrupted header
+
+zip file needs password, use rockyou.txt
+
