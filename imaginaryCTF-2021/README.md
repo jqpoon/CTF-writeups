@@ -11,10 +11,3 @@
 | web | saas | :green_circle: | :x: |
 | misc | formatting | :green_circle: | :x: |
 | misc | imaginary | :green_circle: | :x: |
-
-
-
-
-
-
-
